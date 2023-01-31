@@ -54,3 +54,29 @@ class Like(models.Model):
 
     def __str__(self) -> str:
         return f'{self.product}Liked by{self.author.name}'
+
+
+class Favorite(models.Model):
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='favorite'
+    )
+    favorite = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name='favorite'
+    )
+    is_favorite = models.BooleanField(default=False)
+
+    def __str__(self) -> str:
+        return f'{self.favorite} favorite by {self.author.name}'
+
+
+class Rating(models.Model):
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='ratings'
+    )
+    rating = models.PositiveSmallIntegerField()
+    post = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name='ratings'
+    )
+
+    def __str__(self) -> str:
+        return f'{self.rating} -> {self.post}'
