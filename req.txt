@@ -2,3 +2,4 @@ django
 django-restframework
 Pillow
 psycopg2-binary
+python-slugify
