@@ -7,7 +7,7 @@ User = get_user_model()
 class Category(models.Model):
     title = models.CharField(max_length=200, unique=True, verbose_name='Название категории')
     slug = models.SlugField(max_length=30, primary_key=True, blank=True, unique=True)
-    
+
     def __str__(self) -> str:
         return self.title
 
@@ -26,7 +26,7 @@ class Product(models.Model):
     in_stock = models.BooleanField(default=False)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
-    
+
     def __str__(self) -> str:
         return self.title
 
@@ -80,3 +80,26 @@ class Rating(models.Model):
 
     def __str__(self) -> str:
         return f'{self.rating} -> {self.post}'
+
+from django.db import models
+
+
+class Order(models.Model):
+    author = models.ForeignKey(User, related_name='orders', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='orders', on_delete=models.CASCADE)
+    statuses = [
+        ('D', 'Delivered'),
+        ('ND', 'Not Delivered')
+    ]
+    status = models.CharField(max_length=2, choices=statuses)
+    amount = models.PositiveIntegerField()
+    payments = [
+        ('Card', 'Card'),
+        ('Cash', 'Cash'),
+    ]
+    payment = models.CharField(max_length=4, choices=payments)
+    created_at = models.DateTimeField(auto_now_add=True)
+    delivered_at = models.DateTimeField()
+
+    def __str__(self):
+        return f'Product ID: {self.pk}'
