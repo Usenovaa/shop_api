@@ -2,12 +2,12 @@ from rest_framework import generics
 from rest_framework.viewsets import ModelViewSet
 
 from .models import Comment, Like, Rating
-from .serializers import CommentSerializer, RatingSerializer
+from .serializers import CommentSerializer, RatingSerializer, LikeSerializer
+
 
 class CommentView(generics.ListCreateAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-
 
 class CommentDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comment.objects.all()
@@ -16,3 +16,7 @@ class CommentDetailView(generics.RetrieveUpdateDestroyAPIView):
 class RatingViewSet(ModelViewSet):
     queryset = Rating.objects.all()
     serializer_class = RatingSerializer
+
+class LikeViewSet(ModelViewSet):
+    queryset = Like.objects.all()
+    serializer_class = LikeSerializer

@@ -35,9 +35,9 @@ class Rating(models.Model):
         User, on_delete=models.CASCADE, related_name='ratings'
     )
     rating = models.PositiveSmallIntegerField()
-    post = models.ForeignKey(
+    product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='ratings'
     )
 
     def __str__(self) -> str:
-        return f'{self.rating} -> {self.post}'
+        return f'{self.rating} -> {self.product}'
