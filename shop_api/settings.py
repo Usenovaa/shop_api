@@ -38,6 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',
+
+    'product',
+    'order',
+    'review',
 ]
 
 MIDDLEWARE = [
@@ -77,10 +83,10 @@ WSGI_APPLICATION = 'shop_api.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME':'shop_api',
+        'NAME': 'shop_api',
         'USER': config('DB_USER'),
-        'PASSWORD':config('DB_USER_PASS'),
-        'HOST':'localhost',
+        'PASSWORD': config('DB_USER_PASS'),
+        'HOST': 'localhost',
         'PORT': 5432,
 
     }
