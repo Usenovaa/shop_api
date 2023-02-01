@@ -1,4 +1,5 @@
 django
-django-restframework
+djangorestframework
 Pillow
 psycopg2-binary
+python-decouple
