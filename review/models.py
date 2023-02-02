@@ -25,6 +25,13 @@ class Like(models.Model):
         return f'{self.product}Liked by{self.author.name}'
 
 
+class LikeComment(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='liked')
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='likes')
+    is_liked = models.BooleanField(default=False)
+
+
+
 class Rating(models.Model):
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='ratings'
