@@ -6,6 +6,9 @@ from rest_framework.decorators import action
 from review.serializers import LikeSerializer
 from review.models import Like
 from rest_framework.response import Response
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
+
 
 class CategoryViewSet(ModelViewSet):
     queryset = Category.objects.all()
@@ -15,6 +18,8 @@ class CategoryViewSet(ModelViewSet):
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    search_fields = ['price']
 
     @action(methods=['POST'], detail=True)
     def like(self, request, pk=None):
