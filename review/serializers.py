@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Like, Rating, Comment
+from .models import Like, Rating, Comment,LikeComment
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -15,13 +15,26 @@ class RatingSerializer(serializers.ModelSerializer):
         model = Rating
         fields = '__all__'
 
+    def validate_rating(self, rating):
+        if  0 > rating > 5:
+            raise serializers.ValidationError(
+                'rating must be beetween 0 and 5'
+            )
+        return rating
 
 class LikeSerializer(serializers.ModelSerializer):
+    product = serializers.ReadOnlyField()
 
     class Meta:
         model = Like
         fields = '__all__'
 
 
+class LikeCommentSerializer(serializers.ModelSerializer):
+    comment = serializers.ReadOnlyField()
+
+    class Meta:
+        model = LikeComment
+        fields = '__all__'
 
     
