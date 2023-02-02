@@ -25,9 +25,9 @@ class ProductSerializer(serializers.ModelSerializer):
         return price
 
     def to_representation(self, instance):
-        representation =  super().to_representation(instance)
+        representation = super().to_representation(instance)
         representation['comments'] = [i.body for i in instance.comments.all()]
-        print(CommentSerializer(instance.comments.all(),many=True).data)
+        # print(CommentSerializer(instance.comments.all(), many=True).data)
         representation['ratings'] = instance.ratings.aggregate(Avg('rating'))['rating__avg']
-
+        representation['likes_count'] = instance.likes.count()
         return representation
