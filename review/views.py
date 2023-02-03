@@ -1,7 +1,5 @@
-from django.shortcuts import render
 from .models import Like, Rating, Comment, LikeComment
 from .serializers import CommentSerializer, RatingSerializer, LikeCommentSerializer
-from rest_framework import generics
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action
 from rest_framework.response import Response
