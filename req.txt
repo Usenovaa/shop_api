@@ -1,4 +1,9 @@
 django
-django-restframework
-Pillow
+django-filter
+djangorestframework
+drf-yasg
 psycopg2-binary
+pillow
+python-slugify
+python-decouple
+djangorestframework-simplejwt

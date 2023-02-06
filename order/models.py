@@ -1,0 +1,39 @@
+from django.db import models
+from  product.models import Product
+from django.contrib.auth import get_user_model
+
+# Create your models here.
+User = get_user_model()
+
+class Favorite(models.Model):
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='favorites'
+    )
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name='favorites'
+    )
+    is_favorite = models.BooleanField(default=False)
+
+    def __str__(self) -> str:
+        return f'{self.product} favorite by {self.author.name}'
+
+
+class Order(models.Model):
+    author = models.ForeignKey(User, related_name='orders', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='orders', on_delete=models.CASCADE)
+    statuses = [
+        ('D', 'Delivered'),
+        ('ND', 'Not Delivered')
+    ]
+    status = models.CharField(max_length=2, choices=statuses)
+    amount = models.PositiveIntegerField()
+    payments = [
+        ('Card', 'Card'),
+        ('Cash', 'Cash'),
+    ]
+    payment = models.CharField(max_length=4, choices=payments)
+    created_at = models.DateTimeField(auto_now_add=True)
+    delivered_at = models.DateTimeField()
+
+    def __str__(self):
+        return f'Product ID: {self.pk}'
